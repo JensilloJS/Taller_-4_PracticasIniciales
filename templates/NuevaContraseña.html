@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restablecer Contraseña</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff9966, #ff5e62);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .reset-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            width: 350px;
+            text-align: center;
+        }
+
+        .reset-container h1 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .reset-container label {
+            font-size: 16px;
+            color: #333;
+            display: block;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .reset-container input[type="text"],
+        .reset-container input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .reset-container input[type="text"]:focus,
+        .reset-container input[type="password"]:focus {
+            border-color: #ff5e62;
+            outline: none;
+        }
+
+        .reset-container input[type="submit"] {
+            font-size: 18px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            background: linear-gradient(45deg, #ff9966, #ff5e62);
+            color: white;
+            transition: all 0.4s ease;
+            width: 100%;
+        }
+
+        .reset-container input[type="submit"]:hover {
+            background: linear-gradient(45deg, #ff5e62, #ff9966);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 400px) {
+            .reset-container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="reset-container">
+        <h1>Restablecer Contraseña</h1>
+        <form>
+            <label for="registroAcademico">Registro Académico:</label>
+            <input type="text" id="registroAcademico" name="registroAcademico" placeholder="Ingrese su numero de resgistro " required>
+
+            <label for="contrasena">Nueva Contraseña:</label>
+            <input type="password" id="contrasena" name="contrasena" placeholder="Ingrese nueva contraseña" required>
+
+            <input type="submit" value="Restablecer">
+        </form>
+    </div>
+</body>
+</html>

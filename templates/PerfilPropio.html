@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Perfil</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #000000, #8DC26F);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-container {
+            display: flex;
+            gap: 30px; 
+        }
+
+        .profile-container, .courses-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            width: 450px;
+        }
+
+        .profile-container {
+            text-align: center;
+        }
+
+        .profile-container h1 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .profile-container label {
+            font-size: 16px;
+            color: #333;
+            display: block;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .input-group .input-field {
+            flex: 1;
+        }
+
+        .profile-container input[type="text"], .profile-container input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .profile-container input[type="text"]:focus, .profile-container input[type="email"]:focus {
+            border-color: #76b852;
+            outline: none;
+        }
+
+        .profile-container button {
+            font-size: 18px;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            background: linear-gradient(45deg, #000000, #8DC26F);
+            color: white;
+            transition: all 0.4s ease;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .profile-container button:hover {
+            background: linear-gradient(45deg, #8DC26F, #000000);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .courses-container h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        .courses-container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .courses-container th, .courses-container td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        .courses-container th {
+            background-color: #76b852;
+            color: white;
+        }
+
+        .courses-container td {
+            background-color: #f9f9f9;
+        }
+
+        @media (max-width: 950px) {
+            .main-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .profile-container, .courses-container {
+                width: 100%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        
+        <div class="profile-container">
+            <h1>Tu Perfil</h1>
+
+            <label for="registroAcademico">Registro Académico:</label>
+            <input type="text" id="registroAcademico" name="registroAcademico" placeholder="Registro Academico">
+
+            <div class="input-group">
+                <div class="input-field">
+                    <label for="nombre">Nombres:</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombres">
+                </div>
+                <div class="input-field">
+                    <label for="apellidos">Apellidos:</label>
+                    <input type="text" id="apellidos" name="apellidos" placeholder="apellidos">
+                </div>
+            </div>
+
+            <label for="correo">Correo Electrónico:</label>
+            <input type="email" id="correo" name="correo" placeholder="correo electrónico">
+
+            <label for="Curso">Curso:</label>
+            <input type="text" id="Curso" name="Curso" placeholder="Ingrese curso a agregar">
+
+            <label for="Creditos">Créditos:</label>
+            <input type="text" id="Creditos" name="Creditos" placeholder="Ingrese los créditos del curso">
+
+            <button id="agregarCurso">Agregar Curso</button>
+            <button id="actualizarPerfil">Actualizar</button>
+        </div>
+
+        <div class="courses-container">
+            <h2>Cursos Aprobados</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Curso</th>
+                        <th>Créditos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- aqui se tiene que ir colocando los cursos que se van aprobando junto con los creditos -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
