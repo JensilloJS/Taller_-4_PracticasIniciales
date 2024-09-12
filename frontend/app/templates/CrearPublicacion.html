@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Publicacion</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            width: 400px;
+        }
+
+        .form-container label {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .form-container input[type="text"], 
+        .form-container textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-container input[type="text"]:focus, 
+        .form-container textarea:focus {
+            border-color: #6a11cb;
+            outline: none;
+        }
+
+        .form-container textarea {
+            resize: none;
+        }
+
+        .form-container button {
+            font-size: 18px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            color: white;
+            transition: all 0.4s ease;
+            width: 100%;
+        }
+
+        .form-container button:hover {
+            background: linear-gradient(45deg, #2575fc, #6a11cb);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 400px) {
+            .form-container {
+                width: 90%;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form>
+            <label for="nombreAlumno">Nombre de alumno:</label>
+            <input type="text" id="nombreAlumno" name="nombreAlumno" placeholder="aqui tiene que mostrar automaticamente el nombre">
+
+            <label for="cursoCatedratico">Curso o catedrático:</label>
+            <input type="text" id="cursoCatedratico" name="cursoCatedratico" placeholder="Ingrese el curso o catedrático">
+
+            <label for="comentario"> </label>
+            <textarea id="comentario" name="comentario" rows="5" placeholder="EScribe tu publicacion"></textarea>
+
+            <button type="submit">Publicar</button>
+        </form>
+    </div>
+</body>
+</html>
