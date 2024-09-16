@@ -46,18 +46,26 @@ def login():
     try:
         id = request.json.get('id')
         password = request.json.get('password')
-        
-        # Verificar en la base de datos si el usuario existe
+
+        if not id or not password:
+            return jsonify({'error': 'Datos de entrada incompletos'}), 400
+
+        # Obtener el usuario de la base de datos
         usuario = Usuario.query.filter_by(id=id).first()
         if usuario is None:
             return jsonify({'error': 'Usuario no encontrado'}), 404
+
+        # Comparar contraseñas en texto plano
         if usuario.password != password:
             return jsonify({'error': 'Contraseña incorrecta'}), 401
+
         return jsonify({'message': 'Bienvenido!'}), 200
+
     except HTTPException as e:
-        return jsonify({'error': str(e.description)}), e.code
+        return jsonify({'error': f'HTTP Exception: {str(e.description)}'}), e.code
     except Exception as e:
-        return jsonify({'error': 'Error interno del servidor'}), 500
+        return jsonify({'error': f'Error interno del servidor: {str(e)}'}), 500
+
 
 # Ruta para verificar datos del usuario para restablecimiento de contraseña
 @login_blueprint.route('/verificar', methods=['POST'])

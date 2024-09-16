@@ -31,29 +31,28 @@ def signin(request):
                 'id': form.cleaned_data['id'],
                 'password': form.cleaned_data['password']
             }
-            # Petición POST al backend 
             try:
                 response = requests.post('http://localhost:5000/login', json=data)
-                response.raise_for_status()
-                
-                # Verifica el contenido de la respuesta
-                respuesta = response.json()
+                response.raise_for_status()  # Verifica que no hubo errores en la respuesta
                 
                 if response.status_code == 200:
-                    # Redirige a la pagina pincipal
-                    response = redirect('principal')  
-                     # Guarda el user_id en una cookie
+                    # Redirige al usuario a la página principal
+                    response = redirect('principal')
                     response.set_cookie('user_id', data['id']) 
                     return response
                 else:
-                    #
-                    return JsonResponse({'message': respuesta.get('error', 'Login failed')}, status=response.status_code)
-            except requests.exceptions.RequestException as e:
-                return JsonResponse({'error': 'Error en la conexión con el servidor'}, status=500)
+                    # Maneja los errores de la API
+                    respuesta = response.json()
+                    return render(request, 'login.html', {'form': form, 'error_message': respuesta.get('error', 'Login failed')})
+            except requests.exceptions.RequestException:
+                # Maneja errores de conexión con la API
+                return render(request, 'login.html', {'form': form, 'error_message': 'Error en la conexión con el servidor'})
             except ValueError:
-                return JsonResponse({'error': 'Error en la respuesta del servidor'}, status=500)
+                # Maneja errores de respuesta JSON
+                return render(request, 'login.html', {'form': form, 'error_message': 'Error en la respuesta del servidor'})
         else:
-            return JsonResponse({'error': 'Datos del formulario inválidos'}, status=400)
+            # Maneja datos de formulario inválidos
+            return render(request, 'login.html', {'form': form, 'error_message': 'Datos del formulario inválidos'})
     else:
         form = LoginForm()
         return render(request, 'login.html', {'form': form})
