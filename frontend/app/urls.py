@@ -7,6 +7,9 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('registro/', views.registro, name='registro'),
     path('ir_registro/', views.ir_registro, name='ir_registro'),
+    path('ir_verificacion/', views.ir_verificacion, name='ir_verificacion'),
+    path('verificar/', views.verificar, name='verificar'),
+    path('restablecer/', views.nueva_contrasena, name='restablecer'),
     path('signin/', views.signin, name='signin'),
     path('principal/', views.principal, name='principal')
 ]

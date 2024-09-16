@@ -84,15 +84,39 @@
 <body>
     <div class="reset-container">
         <h1>Restablecer Contraseña</h1>
-        <form>
+        <form id="reset-form">
             <label for="registroAcademico">Registro Académico:</label>
-            <input type="text" id="registroAcademico" name="registroAcademico" placeholder="Ingrese su numero de resgistro " required>
+            <input type="text" id="registroAcademico" name="registroAcademico" placeholder="Ingrese su número de registro" required>
 
             <label for="contrasena">Nueva Contraseña:</label>
             <input type="password" id="contrasena" name="contrasena" placeholder="Ingrese nueva contraseña" required>
 
             <input type="submit" value="Restablecer">
         </form>
+        <script>
+            document.getElementById('reset-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const id = document.getElementById('registroAcademico').value;
+                const nuevaContrasena = document.getElementById('contrasena').value;
+
+                fetch('http://localhost:5000/restablecer', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ id: id, nueva_contrasena: nuevaContrasena })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message || data.error);
+                    if (data.message) {
+                        // Redirigir al usuario a la página de inicio de sesión
+                        window.location.href = '/login';
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        </script>
     </div>
 </body>
 </html>

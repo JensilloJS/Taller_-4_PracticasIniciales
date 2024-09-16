@@ -1,6 +1,6 @@
 # my_django_app/views.py
 from django.shortcuts import render, redirect
-from .forms import LoginForm, RegistroForm
+from .forms import LoginForm, RegistroForm, RestablecerContraForm, NuevaContrasenaForm
 from django.http import JsonResponse
 import requests
 from django.http import HttpResponse
@@ -78,3 +78,58 @@ def registro(request):
 
 def ir_registro(request):
     return render(request, 'RegistroUsuario.html')
+
+def ir_verificacion(request):
+    return render(request, 'RestablecerContra.html')
+
+def verificar(request):
+    if request.method == 'POST':
+        form = RestablecerContraForm(request.POST)
+        if form.is_valid():
+            data = {
+                'email': form.cleaned_data['email'],
+                'registration': form.cleaned_data['registration']
+            }
+            print(f"Datos enviados al servidor: {data}")  # Verifica qué datos estás enviando
+            try:
+                response = requests.post('http://localhost:5000/verificar', json=data)
+                response.raise_for_status()
+                
+                if response.status_code == 200:
+                    # Almacenar el ID verificado en la sesión
+                    request.session['verified_id'] = form.cleaned_data['registration']
+                    return redirect('nueva_contrasena')
+                else:
+                    return JsonResponse({'message': 'Datos incorrectos'}, status=400)
+            except requests.exceptions.RequestException:
+                return JsonResponse({'error': 'Error en la conexión con el servidor'}, status=500)
+        else:
+            return JsonResponse({'error': 'Datos del formulario inválidos'}, status=400)
+    else:
+        form = RestablecerContraForm()
+    return render(request, 'RestablecerContra.html', {'form': form})
+
+def nueva_contrasena(request):
+    if request.method == 'POST':  # Django usa POST en formularios, aunque sea PUT para la API
+        form = NuevaContrasenaForm(request.POST)
+        if form.is_valid():
+            data = {
+                'email': form.cleaned_data['email'],
+                'id': form.cleaned_data['registroAcademico'],
+                'nueva_contrasena': form.cleaned_data['contrasena']
+            }
+            try:
+                # Cambiar a método PUT
+                response = requests.put('http://localhost:5000/restablecer', json=data)
+                
+                if response.status_code == 200:
+                    return redirect('login')  # Redirigir al login si es exitoso
+                else:
+                    return JsonResponse({'message': 'Error al restablecer la contraseña'}, status=response.status_code)
+            except requests.exceptions.RequestException:
+                return JsonResponse({'error': 'Error en la conexión con el servidor'}, status=500)
+        else:
+            return JsonResponse({'error': 'Datos del formulario inválidos'}, status=400)
+    else:
+        form = NuevaContrasenaForm()  # En caso de GET, se envía el formulario vacío
+    return render(request, 'NuevaContraseña.html', {'form': form})

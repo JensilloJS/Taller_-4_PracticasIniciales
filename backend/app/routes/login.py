@@ -59,3 +59,45 @@ def login():
     except Exception as e:
         return jsonify({'error': 'Error interno del servidor'}), 500
 
+# Ruta para verificar datos del usuario para restablecimiento de contraseña
+@login_blueprint.route('/verificar', methods=['POST'])
+def verificar():
+    try:
+        data = request.get_json()
+        print(f"Datos recibidos: {data}")  # Verifica qué datos estás recibiendo
+        email = data.get('email')
+        id = data.get('id')
+
+        # Verificar si el usuario existe con el email y el registro académico proporcionados
+        usuario = Usuario.query.filter_by(email=email, id=id).first()
+        if usuario is None:
+            return jsonify({'error': 'Correo electrónico o registro académico incorrectos'}), 404
+        
+        return jsonify({'message': 'Datos verificados, puede restablecer la contraseña'}), 200
+    except HTTPException as e:
+        return jsonify({'error': str(e.description)}), e.code
+    except Exception as e:
+        return jsonify({'error': 'Error interno del servidor'}), 500
+
+# Ruta para actualizar la contraseña del usuario
+@login_blueprint.route('/restablecer', methods=['PUT'])
+def actualizar_contrasena():
+    try:
+        data = request.get_json()
+        id = data.get('id')
+        nueva_contrasena = data.get('nueva_contrasena')
+
+        # Verificar si el usuario existe con el email y el registro académico proporcionados
+        usuario = Usuario.query.filter_by(id=id).first()
+        if usuario is None:
+            return jsonify({'error': 'Registro académico incorrecto'}), 404
+
+        # Actualizar la contraseña del usuario
+        usuario.password = nueva_contrasena
+        db.session.commit()
+
+        return jsonify({'message': 'Contraseña actualizada exitosamente'}), 200
+    except HTTPException as e:
+        return jsonify({'error': str(e.description)}), e.code
+    except Exception as e:
+        return jsonify({'error': 'Error interno del servidor'}), 500

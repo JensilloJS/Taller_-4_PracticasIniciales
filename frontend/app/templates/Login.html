@@ -118,7 +118,7 @@
             <input type="password" id="password" name="password" placeholder="Ingrese su contraseña" required>
 
             <input type="submit" value="Iniciar sesión">
-            <input type="button" value="Restablecer Contraseña" >
+            <a href="{% url 'ir_verificacion' %}" class="button">Restablecer contraseña</a>
             <a href="{% url 'ir_registro' %}" class="button">Registrar</a>
         </form>
     </div>
